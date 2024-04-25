@@ -9,8 +9,24 @@ class HomeView(ListView):
     model = Item
     template_name = 'index.html'
 
+
 def signup(request):
-     pass
+    if not request.user.is_authenticated:
+        if request.method== 'POST':
+            username = request.POST.get('nameInput')
+            email = request.POST.get('emailInput')
+            password = request.POST.get('passwordInput')
+            pass2 = request.POST.get('passwordInput1')
+            if password != pass2:
+                return render(request, 'signup.html', {'error': "Mismatched Passwords"})
+            else:
+                my_user = User.objects.create_user(username, email, password)
+                my_user.save()
+                return redirect('login-page')
+
+        return render(request, 'signup.html')
+    else:
+        return redirect('/')
 
 def login(request):
     if not request.user.is_authenticated:
