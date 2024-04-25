@@ -89,5 +89,7 @@ class Order(models.Model):
         return self.status
 
 class OrderItem(models.Model):
-    pass
+    order = models.ForeignKey(Order, on_delete=models.CASCADE,null=True)
+    item = models.ForeignKey(MerchantItem, on_delete=models.CASCADE,null=True)
+    quantity = models.IntegerField(default=1)
 
