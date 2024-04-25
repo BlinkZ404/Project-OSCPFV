@@ -109,6 +109,37 @@ function decrementValue(productIndex) {
     }
 }
 
+// Function to calculate the total amount based on product quantities and prices
+function calculateTotal() {
+    // Select all product containers
+    let productContainers = document.querySelectorAll('.product-container');
+
+    let total = 0;
+
+    // Loop through each product container
+    productContainers.forEach((container, index) => {
+        // Get the quantity and price elements
+        let counter = container.querySelector(`[id^="counter"]`);
+        let priceElement = container.querySelector('.font-bold');
+
+        // Get the quantity and price values
+        let quantity = parseInt(counter.textContent);
+        let priceText = priceElement.textContent;
+        // Remove any non-numeric characters from the price (e.g. "৳")
+        let price = parseFloat(priceText.replace(/[^\d.]/g, ''));
+
+        // Calculate the total
+        total += quantity * price;
+    });
+
+    // Display the total in the HTML
+    let totalDisplay = document.querySelector('#total');
+    totalDisplay.textContent = `${total.toLocaleString()}৳`;
+
+
+}
+calculateTotal();
+
 
 </script>
 {% endblock main %}
