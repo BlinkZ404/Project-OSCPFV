@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block main %}
+
+ <!-- ------------main------------------ -->
+    <main class="px-40 flex justify-between py-20">
+
+        <!-- left -->
+        <div>
+            <p class="text-2xl font-semibold pb-4">Shopping Cart</p>
+
+            {% for item in items %}
+            <!-- product -->
+            <div class="flex justify-between items-center gap-4 py-10 border-b product-container">
+                <img src="{{ item.item.image.url }}" alt="icon" width="150" height="150">
+                <div>
+                    <p class="font-medium text-[16px] w-[182px]">{{ item.item.title }}</p>
+                    <p class="text-sm">{{ item.merchant }}</p>
+                </div>
+                <div class="flex items-center">
+                    <div class="h-8 w-8 flex justify-center items-center hover:bg-slate-200 cursor-pointer decrement-button"
+                        >-</div>
+                    <div class="h-8 w-8 flex justify-center items-center border border-slate-300 text-xs" id="counter{{forloop.counter}}">
+                        1
+                    </div>
+                    <div class="h-8 w-8 flex justify-center items-center hover:bg-slate-200 cursor-pointer increment-button"
+                        >+</div>
+                </div>
+                <p class="font-bold">{{item.price}}৳</p>
+                <div class="hover:bg-slate-300 w-fit cursor-pointer" >
+                    <img src="{% static "./images/Cart/Close.png" %}" alt="icon">
+                </div>
+            </div>
+            {% empty %}
+             <p class="text-2xl font-semibold">Your cart is empty</p>
+            {% endfor %}
+        </div>
+
+        <!-- right -->
+        <div class="px-16 border rounded">
+            <div>
+                <p class="font-bold text-xl pt-4 pb-10">Order Summary</p>
+                <div class="space-y-4">
+                    <form method="POST">
+                        {% csrf_token %}
+                        {% for  item in items %}
+                        <input type="hidden" name="{{item.id}}" id="{{forloop.counter}}" value="1">
+
+                        {% endfor %}
+                    <div>
+                        <p class="font-medium text-sm">Address</p>
+                        <input type="text" name='address'
+                            class="w-96 leading-[56px] border border-slate-300 rounded-md px-4 bg-transparent"
+                            placeholder="Enter your address" style="margin-top: 10px;">
+                    </div>
+
+                    <div style="margin-top: 30px;">
+                        <p class="font-medium text-sm">Phone Number</p>
+                        <div class="w-96 h-14 relative">
+                            <input type="text" name='phone'
+                                class="w-96 leading-[56px] border border-slate-300 rounded-md px-4 bg-transparent"
+                                placeholder="Enter your number" style="margin-top: 10px;">
+
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between" style="margin-top: 30px;">
+                        <p class="">Estimated Tax</p>
+                        <p class="font-medium">0৳</p>
+                    </div>
+                    <div class="flex justify-between" style="margin-bottom: 20px;">
+                        <p class="font-medium">Total Amount</p>
+                        <p class="font-medium" id='total'>0৳</p>
+                    </div>
+
+                    <a href="" >
+                        <button class="bg-black text-white font-medium w-full rounded leading-[56px]">Checkout</button>
+                    </a>
+                </form>
+                </div>
+            </div>
+        </div>
+    </main>
