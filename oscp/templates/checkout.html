@@ -106,6 +106,15 @@
       })
   })
 
- </script>
+
+  const tabs = document.querySelectorAll(".tab");
+  const showBkash = () => {
+      tabs.forEach(element => {
+          element.style.display = "none"
+      })
+      document.querySelector(".bkash").style.display = "block"
+  }
+
+</script>
 
 {% endblock main %}
