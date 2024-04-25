@@ -52,6 +52,8 @@ def logOut(request):
         logout(request)
     return redirect('login-page')
 
+
 @login_required
 def profile(request):
-    pass
+    my_user = User.objects.get(username=request.user.username)
+    return render(request, 'profile.html', {'user': my_user})
