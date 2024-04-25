@@ -76,7 +76,17 @@ class MerchantItem(models.Model):
         return self.item.title
 
 class Order(models.Model):
-    pass
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    start_date = models.DateTimeField(auto_now_add=True)
+    order_date = models.DateTimeField(null=True, default=timezone.now)
+    address = models.CharField(max_length=500,null=True)
+    phone = models.CharField(max_length=20,null=True)
+    payment_info = models.CharField(max_length=20, null=True)
+    status = models.CharField(choices=STATUS_CHOICES, max_length=15, default='Pending')
+
+
+    def __str__(self):
+        return self.status
 
 class OrderItem(models.Model):
     pass
