@@ -54,7 +54,14 @@ class Item(models.Model):
     img_tag.short_description = 'Image'
 
 class Merchant(models.Model):
-    pass
+    name = models.CharField(max_length=100, null=True)
+    logo = models.ImageField(upload_to='static/images')
+    def __str__(self):
+        return self.name
+
+    def img_tag(self):
+        return mark_safe(f'<img src="{self.logo.url}" width="60" height="50" />')
+    img_tag.short_description = 'Image'
     
 class MerchantItem(models.Model):
     pass
