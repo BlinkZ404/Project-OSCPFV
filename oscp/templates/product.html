@@ -1,0 +1,218 @@
+{% extends "base.html" %}
+{% load static %}
+{% block style %}
+<style>
+  .active {
+      border-width: 4px;
+      border-color: aqua;
+      padding: 1px;
+      /* color: black; */
+  }
+
+  .activeR {
+      color: white;
+      background-color: gray;
+  }
+</style>
+{% endblock style %}
+
+{% block main %}
+
+<main class="py-14 px-40">
+  <!-- --------product description--------- -->
+  <div class="flex items-center gap-8">
+      <!-- image slider -->
+      <div class="flex gap-16 flex-1">
+
+          <!-- display -->
+          <div>
+              <img src="{{item.image.url}}" alt="img" class="h-[500px] w-[500px]">
+          </div>
+      </div>
+      <!-- details -->
+      <div class="flex-1 space-y-4">
+          <p class="text-[40px] font-bold">{{ object.title}}</p>
+          <p>
+              <span class="text-3xl font-medium">{{ object.price }} ৳</span>
+          </p>
+
+              <!-- Varient selection -->
+              <div>
+                  <button
+                      class="rBtn py-4 w-24 rounded-lg border-2 border-[#D5D5D5] text-[#D5D5D5] activeR"
+                      onclick="setRAM('128GB', this)">{{ object.variant }}</button>
+                 
+              </div>
+
+
+      </div>
+  </div>
+</main>
+
+    <!-- -------Table------------------------ -->
+    <div class="flex justify-start w-full px-20 py-12">
+      <div class="relative overflow-x-auto mx-auto w-full">
+          <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+              <thead class="text-xs text-gray-700 uppercase bg-white dark:bg-gray-700 dark:text-gray-400">
+                  <tr class="border-b">
+                      <th scope="col" class="px-6 py-3">
+                          Sold by
+                      </th>
+                      <th scope="col" class="px-6 py-3">
+                        Rating
+                    </th>
+                      <th scope="col" class="px-6 py-3">
+                          Stock
+                      </th>
+                      <th scope="col" class="px-6 py-3">
+                          Shipping
+                      </th>
+                      <th scope="col" class="px-6 py-3">
+                          Warranty
+                      </th>
+                      <th scope="col" class="px-6 py-3">
+                          Price
+                      </th>
+                      <th scope="col" class="px-6 py-3">
+
+                      </th>
+                  </tr>
+              </thead>
+              <tbody>
+              {% for merchant in merchant_list  %}
+                  <tr class="bg-white border-b dark:bg-white dark:white">
+                      <th scope="row"
+                          class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black flex gap-2 items-center">
+                          <img src="{{ merchant.merchant.logo.url }}" alt="icon" width="30" height="30">
+                          <p>{{ merchant.merchant.name }}</p>
+                      </th>
+                      <td class="px-6 py-4 text-black">
+                        {{ merchant.rating }}
+                    </td>
+                      <td class="px-6 py-4 text-black">
+                          {{ merchant.stock }}
+                      </td>
+                      <td class="px-6 py-4 text-black">
+                          {{ merchant.shipping }}
+                      </td>
+                      <td class="px-6 py-4 text-black">
+                         {{ merchant.warranty }}
+                      </td>
+                      <td class="px-6 py-4 text-black">
+                          {{ merchant.price }}
+                      </td>
+                      <td class="px-6 py-4 text-black">
+                        <button class="rounded-full px-4 py-1 font-bold text-black border-2 border-black"
+                        onclick="addToCart('{{merchant.id}}')">
+                        Add to cart +
+                    </button>
+                      </td>
+                  </tr>
+              {% endfor %}
+              </tbody>
+          </table>
+      </div>
+
+
+  </div>
+  <!-- -----------details--------- -->
+  <div class="px-[200px]">
+      <p class="text-2xl font-medium">Details</p>
+      <p class="text-[#9D9D9D] text-sm font-medium py-8">
+        {{ object.details }}
+      </p>
+    </div>
+  
+  <script>
+    function saveObjectToLocalStorage(id = null) {
+        
+
+        // Retrieve the existing data from local storage
+        let existingData = localStorage.getItem("myObjects");
+
+        // Check if there is existing data
+        if (existingData) {
+            existingData = JSON.parse(existingData); // Convert JSON string back to array
+        } else {
+            existingData = []; // Start as a new array if no data exists
+        }
+
+        // Add new object to array
+        if (existingData.indexOf(id)==-1)
+            existingData.push(id);
+
+        // Save the updated array back to local storage
+        localStorage.setItem("myObjects", JSON.stringify(existingData));
+    }
+
+    function getCookies() {
+        var cookies = document.cookie.split(';');
+        var cookieObj = {};
+        
+        cookies.forEach(function(cookie) {
+            var cookiePair = cookie.split('=');
+            var key = cookiePair[0].trim();
+            var value = cookiePair.length > 1 ? cookiePair[1].trim() : '';
+            cookieObj[key] = value;
+        });
+        
+        return cookieObj;
+    }
+    
+    function setCookie(name, value, options = {}) {
+        let updatedCookie = name + "=" + value;
+    
+        for (let optionKey in options) {
+            updatedCookie += "; " + optionKey;
+            let optionValue = options[optionKey];
+            if (optionValue !== true) {
+                updatedCookie += "=" + optionValue;
+            }
+        }
+    
+        document.cookie = updatedCookie;
+    }
+    
+    function setCookies(cookieObj) {
+      const expirationDate = new Date();
+      expirationDate.setMonth(expirationDate.getMonth() + 1); // Set expiration date to one month from now
+      const expires = expirationDate.toUTCString();
+      options = { 'expires': expires, 'path': '/' };
+      
+      for (let key in cookieObj) {
+        setCookie(key, cookieObj[key], options);
+      }
+    }
+    function addToCart(value, quantity=1) {
+        var cookies = getCookies();
+        var products;
+        
+        if (!('products' in cookies)) {
+          products = {
+            products: []
+          };
+        } else {
+          products = JSON.parse(cookies['products']);
+        }
+      
+        var added = false;
+        // Check if the product is already in the cart
+        for (let product of products['products']) {
+          if (product['id'] == value) {
+            product['quantity'] = parseInt(product['quantity']) + quantity;
+            added = true;
+          }
+        }
+      
+        if (!added) {
+          products['products'].push({ id: value, quantity: quantity });
+        }
+      
+        cookies['products'] = JSON.stringify(products);  
+        setCookies(cookies);
+
+        {% comment %} showNotification('Product added to cart'); {% endcomment %}
+      }
+
+</script>
+{% endblock main %}
