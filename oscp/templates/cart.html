@@ -97,5 +97,18 @@ function incrementValue(productIndex) {
     calculateTotal();
 }
 
+// Function to decrement the quantity of a product
+function decrementValue(productIndex) {
+    let counter = document.querySelector(`#counter${productIndex}`);
+    let quantity = parseInt(counter.textContent);
+    if (quantity > 1) {
+        quantity--;
+        document.getElementById(`${productIndex}`).value=quantity
+        counter.textContent = quantity;
+        calculateTotal();
+    }
+}
+
+
 </script>
 {% endblock main %}
