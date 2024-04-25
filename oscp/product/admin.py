@@ -31,7 +31,14 @@ class OrderItemAdmin(admin.ModelAdmin):
     ]
 
 class OrderAdmin(admin.ModelAdmin):
-    pass
+    list_display = [
+        'order_date',
+        'user',
+        'phone',
+        'address',
+        'payment_info',
+        'status'
+    ]
 
 class MerchantAdmin(admin.ModelAdmin):
     pass
