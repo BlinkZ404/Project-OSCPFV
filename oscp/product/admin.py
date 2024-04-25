@@ -13,7 +13,15 @@ class ItemAdmin(admin.ModelAdmin):
     ]
 
 class MerchantItemAdmin(admin.ModelAdmin):
-    pass
+    list_display = [
+        'merchant',
+        'item',
+        'rating',
+        'stock',
+        'shipping',
+        'warranty',
+        'price'
+    ]
 
 class OrderItemAdmin(admin.ModelAdmin):
     pass
