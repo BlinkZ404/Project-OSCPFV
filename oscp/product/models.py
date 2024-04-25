@@ -64,7 +64,16 @@ class Merchant(models.Model):
     img_tag.short_description = 'Image'
     
 class MerchantItem(models.Model):
-    pass
+    merchant = models.ForeignKey(Merchant,on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    rating = models.IntegerField()
+    stock = models.CharField(choices=STOCK_CHOICES, max_length=15, default=STOCK_CHOICES)
+    shipping = models.CharField(max_length=100, null=True)
+    warranty = models.CharField(max_length=100, null=True)
+    price = models.IntegerField(null=True)
+
+    def __str__(self):
+        return self.item.title
 
 class Order(models.Model):
     pass
