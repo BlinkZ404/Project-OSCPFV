@@ -2,7 +2,15 @@ from django.contrib import admin
 from .models import Item, Order, OrderItem, Merchant,MerchantItem
 
 class ItemAdmin(admin.ModelAdmin):
-    pass
+    prepopulated_fields = {'slug': ('title', )}
+    list_display = [
+        'title',
+        'img_tag',
+        'price',
+        'category',
+        'slug',
+        'details'
+    ]
 
 class MerchantItemAdmin(admin.ModelAdmin):
     pass
