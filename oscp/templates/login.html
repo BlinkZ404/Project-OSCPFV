@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+{% block main %}
+<form class="bg-white w-fit mx-auto space-y-4 pt-16 pb-4 px-8 rounded-3xl border-2 mt-12 mb-32" method='POST'>{% csrf_token %}
+  <p class="text-center font-medium text-lg">Login to <span class="font-bold">One stop </span></p>
+  <div>
+      <p class="text-sm">Enter Username</p>
+      <input type="text" name="nameInput" class="bg-[#F5F5F5] w-[352px] rounded leading-10 px-4 text-sm"
+          placeholder="Ex: Arif91">
+  </div>
+
+  <div>
+      <p class="text-sm">Password</p>
+      <input type="password" name="passwordInput" class="bg-[#F5F5F5] w-[352px] rounded leading-10 px-4 text-sm"
+          placeholder="********">
+  </div>
+
+  <div>
+      <button>
+          <div class="text-center bg-black text-white w-[352px] rounded font-medium text-sm leading-10">Login
+          </div>
+        </button>
+  </div>
+  <div>
+    <p class="text-sm text-center" style='color:red'>{{error}}</p>
+  </div>
+<div>
+  <p class="text-sm text-center">Don't have an account?  <a href="/signup/"
+          class="hover:underline">Sign up</a></p>
+</div>
+</form>
+
+{% endblock main %}
