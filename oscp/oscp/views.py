@@ -13,7 +13,24 @@ def signup(request):
      pass
 
 def login(request):
-     pass
+    if not request.user.is_authenticated:
+        if request.method == 'POST':
+            username = request.POST.get('nameInput')
+            password = request.POST.get('passwordInput')
+            print(username,password)
+            user = authenticate(request, username=username, password=password)
+
+            if user is not None:
+                auth_login(request, user)
+                return redirect('home-page')
+            else:
+                return render(request, 'login.html', {'error': 'Invalid Email or Password'})
+
+        return render(request, 'login.html')
+    else:
+        return redirect('/')
+
+
 
 def logOut(request):
     pass
