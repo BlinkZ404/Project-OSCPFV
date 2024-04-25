@@ -82,4 +82,20 @@
                 </div>
             </div>
         </div>
+
     </main>
+
+<script>
+
+     // Function to increment the quantity of a product
+function incrementValue(productIndex) {
+    let counter = document.querySelector(`#counter${productIndex}`);
+    let quantity = parseInt(counter.textContent);
+    quantity++;
+    document.getElementById(`${productIndex}`).value=quantity
+    counter.textContent = quantity;
+    calculateTotal();
+}
+
+</script>
+{% endblock main %}
