@@ -1,9 +1,9 @@
-from django.shortcuts import render,HttpResponse, redirect, get_object_or_404, redirect
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login as auth_login,logout
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
-from product.models import Item, Order, OrderItem
+from product.models import Item
 
 class HomeView(ListView):
     model = Item

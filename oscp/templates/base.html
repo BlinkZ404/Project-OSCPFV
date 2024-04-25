@@ -1,5 +1,7 @@
 {% load static %}
+
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -15,18 +17,22 @@
 </head>
 
 <body class="bg-white font-poppins">
+
     <!-- ------------navbar--------------- -->
     <nav class="bg-white">
         <div class="font-poppins flex justify-between items-center py-4 px-40">
+
             <!-- logo -->
             <div>
                 <img src="{% static "images/Logo.png" %}" alt="logo">
             </div>
+
             <!-- search -->
             <div class="bg-[#F5F5F5] w-72 flex p-4 rounded-md gap-4">
                 <img src="{% static "./images/Search.png" %}" alt="search">
                 <input type="text" placeholder="search" class="bg-transparent border-none outline-none">
             </div>
+
             <!-- menu -->
             <ul class="flex gap-12">
                 <li><a href="/">Home</a></li>
@@ -34,6 +40,7 @@
                 <li><a href="">Contact Us</a></li>
                 <li><a href="">Blog</a></li>
             </ul>
+
             <!-- icon -->
             <div class="flex gap-8">
                 
@@ -53,31 +60,38 @@
             {% endif %}
             </div>
         </div>
+
         <div class="bg-[#656565] grid grid-cols-6 py-2 px-40">
             <div class="flex justify-center gap-2">
                 <img src="{% static "./images/Phones.png" %}" alt="icon" class="w-6 h-6">
                 <p>Phones</p>
             </div>
+
             <div class="flex justify-center gap-2 border-x-[1px] border-black">
                 <img src="{% static "./images/Computers.png" %}" alt="icon" class="w-6 h-6">
                 <p>Computers</p>
             </div>
+
             <div class="flex justify-center gap-2">
                 <img src="{% static "./images/Smart Watches.png" %}" alt="icon" class="w-6 h-6">
                 <p>Smart Watches</p>
             </div>
+
             <div class="flex justify-center gap-2 border-x-[1px] border-black">
                 <img src="{% static "./images/Cameras.png" %}" alt="icon" class="w-6 h-6">
                 <p>Cameras</p>
             </div>
+
             <div class="flex justify-center gap-2">
                 <img src="{% static "./images/Headphones.png" %}" alt="icon" class="w-6 h-6">
                 <p>Headphones</p>
             </div>
+
             <div class="flex justify-center gap-2 border-l-[1px] border-black">
                 <img src="{% static "./images/Gaming.png" %}" alt="icon" class="w-6 h-6">
                 <p>Gaming</p>
             </div>
+
         </div>
     </nav>
 
@@ -93,6 +107,7 @@
                     available in the
                     market.</p>
             </div>
+
             <div class="space-y-4">
                 <p class="text-[16px] font-semibold">Services</p>
                 <p class="text-sm font-light text-[#CFCFCF]">Bonus program</p>
@@ -102,6 +117,7 @@
                 <p class="text-sm font-light text-[#CFCFCF]">Non-cash account</p>
                 <p class="text-sm font-light text-[#CFCFCF]">Payment</p>
             </div>
+
             <div class="space-y-4">
                 <p class="text-[16px] font-semibold">Assistance to the buyer</p>
                 <p class="text-sm font-light text-[#CFCFCF]">Find an order</p>
@@ -127,6 +143,8 @@
             <img src="{% static "./images/Instagram.png" %}" alt="icon" style="cursor: pointer;">
             </a>
         </div>
+
     </footer>
 </body>
+
 </html>

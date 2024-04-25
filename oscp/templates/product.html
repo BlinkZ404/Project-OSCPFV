@@ -1,6 +1,9 @@
 {% extends "base.html" %}
+
 {% load static %}
+
 {% block style %}
+
 <style>
   .active {
       border-width: 4px;
@@ -13,6 +16,7 @@
       color: white;
       background-color: gray;
   }
+
 </style>
 {% endblock style %}
 
@@ -36,14 +40,13 @@
               <span class="text-3xl font-medium">{{ object.price }} ৳</span>
           </p>
 
-              <!-- Varient selection -->
+              <!-- Variant selection -->
               <div>
                   <button
                       class="rBtn py-4 w-24 rounded-lg border-2 border-[#D5D5D5] text-[#D5D5D5] activeR"
                       onclick="setRAM('128GB', this)">{{ object.variant }}</button>
                  
               </div>
-
 
       </div>
   </div>
@@ -113,8 +116,8 @@
           </table>
       </div>
 
-
   </div>
+
   <!-- -----------details--------- -->
   <div class="px-[200px]">
       <p class="text-2xl font-medium">Details</p>
@@ -123,7 +126,7 @@
       </p>
     </div>
   
-  <script>
+<script>
     function saveObjectToLocalStorage(id = null) {
         
 
