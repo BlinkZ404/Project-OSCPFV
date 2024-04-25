@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block main %}
+
+<main class="py-12">
+  <div class="flex justify-between gap-4 px-20">
+
+      <!-- left -->
+      <div class="border-slate-300 border-2 rounded-lg p-8 space-y-4">
+          <p>Summary</p>
+          <div class="space-y-2">
+
+              <!-- product -->
+              {% for item in items %}
+              <div class="pr-2 flex items-center gap-4 py-4 bg-slate-100 rounded">
+                  <img style="height:100px" src="{{item.item.image.url}}" alt="icon">
+                  <div class="w-full flex justify-between">
+                      <p class="font-medium text-[16px]">{{item.item}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>
+                      <p class="font-bold">{{ item.price }}৳</p>
+                  </div>
+              </div>
+             {% endfor %}
+          </div>
+
+          <div>
+              <p class="font-medium text-xs" style="margin-top: 40px;">Shipment method:</p>
+              <p>Regular</p>
+          </div>
+
+          <div class="flex justify-between" style="margin-top: 40px;">
+              <p class="">Estimated Tax</p>
+              <p class="font-medium">0৳</p>
+          </div>
+
+          <div class="flex justify-between">
+              <p class="">Shipping Charge</p>
+              <p class="font-medium">0৳</p>
+          </div>
+
+          <div class="flex justify-between">
+              <p class="font-medium">Total Amount</p>
+              <p class="font-medium">{{total}}৳</p>
+          </div>
+      </div>
+
+      <!-- right -->
+      <div>
+          <p>Payment</p>
+          <!-- tab name -->
+          <div class="flex gap-4 py-6">
+              <p onclick="showBkash()" class="cursor-pointer select-none name border-b-2 border-white active">Bkash</p>
+              <p onclick="showNagad()" class="cursor-pointer select-none name border-b-2 border-white">Nagad</p>
+              <p onclick="showCash()" class="cursor-pointer select-none name border-b-2 border-white">Cash On Delivery</p>
+          </div>
+          <!-- tab content -->
+          <form method='POST'>
+          {% csrf_token %}
+          <div>
+              <!-- bkash -->
+              <div class="tab bkash">
+                  <div class="bg-[#e2136e] p-8 h-96 relative flex justify-center items-center">
+                      <img src="{% static "./images/bkash.png" %}" alt="logo" class="h-10 w-10 absolute top-4 left-4">
+                      <input type="text" name='bkash' placeholder="Transaction ID" class="w-96 py-3 rounded bg-slate-100 px-4">
+                  </div>
+              </div>
+
+              <!-- Nagad -->
+              <div class="tab hidden nagad">
+                  <div class="bg-red-500 p-8 h-96 relative flex justify-center items-center">
+                      <img src="{% static "./images/nagad.webp" %}" alt="logo" class="h-10 w-10 absolute top-4 left-4">
+                      <input type="text" name='nagad' placeholder="Transaction ID" class="w-96 py-3 rounded bg-slate-100 px-4">
+                  </div>
+              </div>
+
+              <!-- cash on delivery -->
+              <div class="tab hidden cash">
+                  <div class="w-[448px] ">
+                      <p>Note:</p>
+                      <div class='border-slate-300 border-2 rounded-lg'>
+                      <p  style='margin: 20px'>Our delivery man will collect cash from you directly during delivery. OTP is required.</p>
+                      </div>
+                    </div>
+              </div>
+          </div>
+
+          <div class="flex w-full gap-4 pt-5">
+                  <button class=" py-3 border-black w-full border-2 hover:bg-black hover:text-white rounded">Confirm</button>
+          </div>
+
+        </form>
+      </div>
+  </div>
+
+</main>
+
+
+<script>
+
+  const btn = document.querySelectorAll(".name");
+  btn.forEach(ele => {
+      ele.addEventListener("click", (e) => {
+          btn.forEach(item => item.classList.remove("active"));
+          e.target.classList.add("active")
+      })
+  })
+
+
+  const tabs = document.querySelectorAll(".tab");
+  const showBkash = () => {
+      tabs.forEach(element => {
+          element.style.display = "none"
+      })
+      document.querySelector(".bkash").style.display = "block"
+  }
+
+  const showNagad = () => {
+      tabs.forEach(element => {
+          element.style.display = "none"
+      })
+      document.querySelector(".nagad").style.display = "block"
+  }
+
+  const showCash = () => {
+      tabs.forEach(element => {
+          element.style.display = "none"
+      })
+      document.querySelector(".cash").style.display = "block"
+  }
+
+</script>
+
+{% endblock main %}
