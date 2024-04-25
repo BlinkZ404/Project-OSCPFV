@@ -140,6 +140,14 @@ function calculateTotal() {
 }
 calculateTotal();
 
+// Attach event listeners for increment and decrement buttons
+document.querySelectorAll('.increment-button').forEach((button, index) => {
+    button.addEventListener('click', () => incrementValue(index + 1));
+});
+
+document.querySelectorAll('.decrement-button').forEach((button, index) => {
+    button.addEventListener('click', () => decrementValue(index + 1));
+});
 
 </script>
 {% endblock main %}
