@@ -98,7 +98,7 @@
 
 <script>
 
-  const btn = document.querySelectorAll(".name");
+ const btn = document.querySelectorAll(".name");
   btn.forEach(ele => {
       ele.addEventListener("click", (e) => {
           btn.forEach(item => item.classList.remove("active"));
@@ -106,29 +106,6 @@
       })
   })
 
-
-  const tabs = document.querySelectorAll(".tab");
-  const showBkash = () => {
-      tabs.forEach(element => {
-          element.style.display = "none"
-      })
-      document.querySelector(".bkash").style.display = "block"
-  }
-
-  const showNagad = () => {
-      tabs.forEach(element => {
-          element.style.display = "none"
-      })
-      document.querySelector(".nagad").style.display = "block"
-  }
-
-  const showCash = () => {
-      tabs.forEach(element => {
-          element.style.display = "none"
-      })
-      document.querySelector(".cash").style.display = "block"
-  }
-
-</script>
+ </script>
 
 {% endblock main %}
