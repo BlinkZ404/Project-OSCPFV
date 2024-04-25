@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main %}
+      
+ <!-- -------------banner-------------- -->
+    <div class="bg-[#241F1C] h-[632px] font-poppins flex justify-between items-center px-40">
+        <div>
+            <p class="text-[#909090] text-[25px]">Pro Beyond</p>
+            <p class="text-[96px] font-thin text-white">IPhone 14 <span class="font-semibold">Pro</span></p>
+            <p class="text-[#909090] text-[18px]">Created to empty our pockets.</p>
+            <button class="mt-12 px-[56px] py-4 text-center rounded-md border-2 border-white text-white">Shop
+                Now</button>
+        </div>
+        <div>
+            <img src="{% static "./images/Iphone Imagebanner.png" %}" alt="banner">
+        </div>
+    </div>
+
+<!-- -------------Category------------- -->
+<div class="py-20 px-40 space-y-8 bg-[#FAFAFA]">
+    <div class="flex justify-between">
+        <p class="text-2xl font-semibold">Browse By Category</p> 
+    </div>
+
+    <div class="font-poppins flex justify-between">
+        <div class="bg-[#EDEDED] rounded-2xl w-40 h-32 flex flex-col items-center justify-center gap-2">
+            <img src="{% static "./images/Phones.png" %}" alt="Phones">
+            <p class="text-[16px] font-semibold">Phones</p>
+        </div>
+
+        <div class="bg-[#EDEDED] rounded-2xl w-40 h-32 flex flex-col items-center justify-center gap-2">
+            <img src="{% static "./images/Smart Watches.png" %}" alt="Smart Watches">
+            <p class="text-[16px] font-semibold">Smart Watches</p>
+        </div>
+
+        <div class="bg-[#EDEDED] rounded-2xl w-40 h-32 flex flex-col items-center justify-center gap-2">
+            <img src="{% static "./images/Cameras.png" %}" alt="Cameras">
+            <p class="text-[16px] font-semibold">Cameras</p>
+        </div>
+
+        <div class="bg-[#EDEDED] rounded-2xl w-40 h-32 flex flex-col items-center justify-center gap-2">
+            <img src="{% static "./images/Headphones.png" %}" alt="Headphones">
+            <p class="text-[16px] font-semibold">Headphones</p>
+        </div>
+
+        <div class="bg-[#EDEDED] rounded-2xl w-40 h-32 flex flex-col items-center justify-center gap-2">
+            <img src="{% static "./images/Computers.png" %}" alt="Computers">
+            <p class="text-[16px] font-semibold">Computers</p>
+        </div>
+
+        <div class="bg-[#EDEDED] rounded-2xl w-40 h-32 flex flex-col items-center justify-center gap-2">
+            <img src="{% static "./images/Gaming.png" %}" alt="Gaming">
+            <p class="text-[16px] font-semibold">Gaming</p>
+        </div>
+    </div>
+</div>
+ <!-- -------------Product-------------- -->
+ <div class="py-14 px-40 font-poppins space-y-8">
+    <div class="flex gap-8">
+        <p onclick="showNew()"
+            class="name text-lg font-semibold text-[#8b8b8b] border-b-2 border-b-white cursor-pointer active">
+            New
+            Arrival</p>
+        <p onclick="showBest()"
+            class="name text-lg font-semibold text-[#8b8b8b] border-b-2 border-b-white cursor-pointer">Best
+            Seller</p>
+    </div>
+
+    <div class="tab new flex justify-between flex-wrap gap-4">
+        <!-- 1 -->
+        {% for item in object_list  %}
+        <a href="{{ item.get_absolute_url }}" >
+            <div class="w-[268px] h-[456px] bg-[#F6F6F6] rounded-lg py-6 px-4 flex flex-col items-center gap-4">
+                <img src="{{item.image.url}}"  alt="img">
+                
+                <p class="font-medium text-[16px] text-center">
+                    {{item.title}}
+                </p>
+                <p class="font-semibold text-2xl">{{item.price}}৳</p>
+                <button class="py-3 px-16 text-sm font-medium bg-black text-white rounded-lg">See Options</button>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+
+
+<script>
+    const btn = document.querySelectorAll(".name");
+    btn.forEach(ele => {
+        ele.addEventListener("click", (e) => {
+            btn.forEach(item => item.classList.remove("active"));
+            e.target.classList.add("active")
+        })
+    })
+
+
+    const tabs = document.querySelectorAll(".tab");
+    const showNew = () => {
+        tabs.forEach(element => {
+            element.style.display = "none"
+        })
+        document.querySelector(".new").style.display = "flex"
+    }
+
+    const showBest = () => {
+        tabs.forEach(element => {
+            element.style.display = "none"
+        })
+        document.querySelector(".best").style.display = "flex"
+    }
+    const showFeatured = () => {
+        tabs.forEach(element => {
+            element.style.display = "none"
+        })
+        document.querySelector(".featured").style.display = "flex"
+    }
+</script>
+{% endblock main %}
