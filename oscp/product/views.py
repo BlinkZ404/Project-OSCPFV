@@ -55,6 +55,31 @@ def checkout(request,order):
 
 @login_required(login_url='login-page')
 def CartView(request):
-    pass
+    if request.POST:
+        address = request.POST['address']
+        phone = request.POST['phone']
+        key = request.POST
+        key = list(key.keys())
+        keys = key[1:-2]
+        order = Order.objects.create(user=request.user, address=address, phone=phone)
+        order.save()
+        for key in keys:
+            item = MerchantItem.objects.get(id=key)
+            orderitem = OrderItem.objects.create(order=order, item=item, quantity=int(request.POST[key]))
+            orderitem.save()
+
+        return redirect(f'/checkout/{order.id}')
+
+    else:
+        item = []
+        if 'products' in request.COOKIES:
+            data = json.loads(request.COOKIES['products'])
+            merchant_id = []
+            for item in data["products"]:
+                merchant_id.append(item['id'])
+
+            item = MerchantItem.objects.filter(id__in=merchant_id)
+
+        return render(request, 'cart.html', {'items': item})
 
 
