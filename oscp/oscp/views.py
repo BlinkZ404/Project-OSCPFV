@@ -47,9 +47,10 @@ def login(request):
         return redirect('/')
 
 
-
 def logOut(request):
-    pass
+    if request.user.is_authenticated:
+        logout(request)
+    return redirect('login-page')
 
 @login_required
 def profile(request):
