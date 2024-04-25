@@ -41,7 +41,10 @@ class OrderAdmin(admin.ModelAdmin):
     ]
 
 class MerchantAdmin(admin.ModelAdmin):
-    pass
+    list_display = [
+        'name',
+        'img_tag'
+    ]
 
 
 admin.site.register(Item, ItemAdmin)
