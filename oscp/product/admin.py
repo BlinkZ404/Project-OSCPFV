@@ -37,7 +37,8 @@ class OrderAdmin(admin.ModelAdmin):
         'phone',
         'address',
         'payment_info',
-        'status'
+        'status',
+        'note'
     ]
 
 class MerchantAdmin(admin.ModelAdmin):

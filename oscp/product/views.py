@@ -19,36 +19,36 @@ class ItemDetailView(DetailView):
 
 
 @login_required(login_url='login-page')
-def checkout(request,order):
+def checkout(request, order):
     if request.POST:
-        bkash=request.POST['bkash']
-        nagad=request.POST['nagad']
-        order=Order.objects.get(id=order)
-        if bkash==None and nagad==None:
-            order.payment_info= 'Cash on Delivery'
-        elif bkash ==None:
-            order.payment_info= f'Nagad:{nagad}'
+        bkash = request.POST['bkash']
+        nagad = request.POST['nagad']
+        order = Order.objects.get(id=order)
+        if bkash == '' and nagad == '':
+            order.payment_info = 'Cash on Delivery'
+        elif bkash == '':
+            order.payment_info = f'Nagad:{nagad}'
         else:
-            order.payment_info= f'Bkash:{bkash}'
+            order.payment_info = f'Bkash:{bkash}'
         order.save()
         return redirect('/')
 
-    order=Order.objects.get(id=order)
-    orderitem=OrderItem.objects.filter(order=order)
-    item=[]
-    total=0
+    order = Order.objects.get(id=order)
+    orderitem = OrderItem.objects.filter(order=order)
+    item = []
+    total = 0
     for i in orderitem:
-        # print(i.item.price)
-        price=int(i.item.price) * int(i.quantity)
-        dic={
-            'item':i.item.item,
+        price = int(i.item.price) * int(i.quantity)
+        dic = {
+            'item': i.item.item,
             'price': price,
         }
-        total+=price
+        total += price
         item.append(dic)
-    response = render(request, 'checkout.html', {'order':order,'items':item,'total':total})
+    response = render(request, 'checkout.html', {'order': order, 'items': item, 'total': total})
     response.delete_cookie('products')
     return response
+
 
 
 

@@ -60,7 +60,7 @@ class Merchant(models.Model):
         return self.name
 
     def img_tag(self):
-        return mark_safe(f'<img src="{self.logo.url}" width="60" height="50" />')
+        return mark_safe(f'<img src="{self.logo.url}" width="50" height="40" />')
     img_tag.short_description = 'Image'
     
 class MerchantItem(models.Model):
