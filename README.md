@@ -12,19 +12,19 @@ Clone the project
   git clone https://github.com/BlinkZ404/Project-OSCPFV 
 ```
 
-Go to the project directory
-
-```bash
-  cd oscp
-```
-
 Install dependencies
 
 ```bash
   pip install -r requirements.txt
 ```
 
-Migrations
+Go to the project directory
+
+```bash
+  cd oscp
+```
+
+Migrations (Optional)
 
 ```bash
   python manage.py migrate
